@@ -108,51 +108,60 @@ export function LandingPage() {
       <HeroSection onScrollToWaitlist={scrollToWaitlist} />
 
       {/* Problem & Solution Section */}
-      <section className="py-16 sm:py-24 bg-background">
+      <section className="py-12 sm:py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="max-w-4xl mx-auto"
+            className="max-w-6xl mx-auto"
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerChildren}
           >
-            <motion.h2 
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-foreground mb-12"
-              variants={fadeInUp}
-            >
-              {content.problemSolution.title}
-            </motion.h2>
+            <motion.div className="text-center mb-12 sm:mb-16" variants={fadeInUp}>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 sm:mb-6 font-heading">
+                {content.problemSolution.title}
+              </h2>
+            </motion.div>
             
             <motion.div 
-              className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center"
-              variants={fadeInUp}
+              className="grid gap-6 md:grid-cols-2 lg:gap-8"
+              variants={staggerChildren}
             >
-              <Card className="p-6 lg:p-8 bg-destructive/5 border-destructive/20 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <CardContent className="p-0">
-                  <h3 className="text-xl font-semibold text-destructive mb-4">The Problem</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {content.problemSolution.problem}
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div variants={fadeInUp}>
+                <Card className="p-6 sm:p-8 bg-gradient-to-br from-destructive/5 to-destructive/10 border-destructive/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 h-full">
+                  <CardContent className="p-0">
+                    <div className="w-12 h-12 bg-destructive/10 rounded-xl flex items-center justify-center mb-6">
+                      <AlertCircle className="w-6 h-6 text-destructive" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-destructive mb-4 font-heading">The Problem</h3>
+                    <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
+                      {content.problemSolution.problem}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              <Card className="p-6 lg:p-8 bg-success/5 border-success/20 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <CardContent className="p-0">
-                  <h3 className="text-xl font-semibold text-success mb-4">Our Solution</h3>
-                  <p className="text-muted-foreground mb-4">
-                    {content.problemSolution.solutionTitle}
-                  </p>
-                  <ul className="space-y-2">
-                    {content.problemSolution.solutionPoints.map((point, index) => (
-                      <li key={index} className="flex items-start gap-2 text-muted-foreground">
-                        <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <motion.div variants={fadeInUp}>
+                <Card className="p-6 sm:p-8 bg-gradient-to-br from-success/5 to-success/10 border-success/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1 h-full">
+                  <CardContent className="p-0">
+                    <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center mb-6">
+                      <CheckCircle className="w-6 h-6 text-success" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-success mb-4 font-heading">Our Solution</h3>
+                    <p className="text-muted-foreground mb-6 text-base sm:text-lg leading-relaxed">
+                      {content.problemSolution.solutionTitle}
+                    </p>
+                    <ul className="space-y-3">
+                      {content.problemSolution.solutionPoints.map((point, index) => (
+                        <li key={index} className="flex items-start gap-3 text-muted-foreground">
+                          <CheckCircle className="w-5 h-5 text-success mt-1 flex-shrink-0" />
+                          <span className="text-base leading-relaxed">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -168,11 +177,11 @@ export function LandingPage() {
             viewport={{ once: true }}
             variants={staggerChildren}
           >
-            <motion.div className="text-center mb-12" variants={fadeInUp}>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            <motion.div className="text-center mb-16" variants={fadeInUp}>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 font-heading">
                 {content.howItWorks.title}
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {content.howItWorks.subtitle}
               </p>
             </motion.div>

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { getContent } from "@/lib/content";
 import Link from "next/link";
+import Image from "next/image";
 
 const content = getContent();
 
@@ -67,7 +68,7 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
             variants={staggerChildren}
           >
             <motion.h1 
-              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight font-heading"
               variants={fadeInUp}
             >
               {content.hero.headline}
@@ -290,40 +291,68 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
                       {/* Camera viewfinder overlay */}
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 z-10"></div>
                       
-                      {/* Hall/Room placeholder image */}
-                      <div className="w-full h-full bg-gradient-to-br from-amber-100 via-orange-50 to-yellow-100 relative">
-                        {/* Room elements placeholder */}
-                        <div className="absolute top-4 left-4 w-8 h-6 bg-amber-800/20 rounded-sm"></div> {/* Door */}
-                        <div className="absolute top-1/3 right-6 w-12 h-8 bg-amber-700/30 rounded"></div> {/* Furniture */}
-                        <div className="absolute bottom-1/4 left-1/3 w-6 h-4 bg-amber-600/25 rounded-sm"></div> {/* Object */}
-                        <div className="absolute bottom-6 right-8 w-10 h-6 bg-amber-800/20 rounded"></div> {/* Furniture */}
+                      {/* Hall/Room actual image */}
+                      <div className="w-full h-full relative overflow-hidden">
+                        <Image
+                          src="/assets/hall.webp"
+                          alt="Room scanning view"
+                          fill
+                          className="object-cover"
+                          priority
+                        />
                         
                         {/* Scanning overlay */}
                         <motion.div 
-                          className="absolute inset-0 border-2 border-primary/50 rounded-lg"
+                          className="absolute inset-0 border-2 border-primary/60 rounded-lg z-20"
                           animate={{ 
-                            opacity: [0.3, 0.8, 0.3],
-                            scale: [0.95, 1, 0.95]
+                            opacity: [0.4, 0.9, 0.4],
+                            scale: [0.98, 1, 0.98]
                           }}
                           transition={{ duration: 2, repeat: Infinity }}
                         />
                         
-                        {/* Detection points */}
+                        {/* Detection points on actual furniture/objects */}
                         <motion.div 
-                          className="absolute top-1/3 right-6 w-3 h-3 bg-primary rounded-full"
-                          animate={{ scale: [0.8, 1.2, 0.8] }}
+                          className="absolute top-1/4 left-1/2 w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg z-30"
+                          animate={{ scale: [0.8, 1.3, 0.8] }}
                           transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
                         />
                         <motion.div 
-                          className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-accent rounded-full"
-                          animate={{ scale: [0.8, 1.2, 0.8] }}
+                          className="absolute top-2/3 right-1/4 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg z-30"
+                          animate={{ scale: [0.8, 1.3, 0.8] }}
                           transition={{ duration: 1.5, repeat: Infinity, delay: 0.8 }}
                         />
                         <motion.div 
-                          className="absolute bottom-6 right-8 w-3 h-3 bg-success rounded-full"
-                          animate={{ scale: [0.8, 1.2, 0.8] }}
+                          className="absolute bottom-1/3 left-1/4 w-4 h-4 bg-success rounded-full border-2 border-white shadow-lg z-30"
+                          animate={{ scale: [0.8, 1.3, 0.8] }}
                           transition={{ duration: 1.5, repeat: Infinity, delay: 1.4 }}
                         />
+
+                        {/* Item labels */}
+                        <motion.div
+                          className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-8 bg-primary text-white text-xs px-2 py-1 rounded shadow-lg z-30"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1.2 }}
+                        >
+                          Wall Frame
+                        </motion.div>
+                        <motion.div
+                          className="absolute top-2/3 right-1/4 transform translate-x-1/2 -translate-y-8 bg-green-500 text-white text-xs px-2 py-1 rounded shadow-lg z-30"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1.8 }}
+                        >
+                          BeanBag
+                        </motion.div>
+                        <motion.div
+                          className="absolute bottom-1/3 left-1/4 transform -translate-x-1/2 -translate-y-8 bg-yellow-300 text-white text-xs px-2 py-1 rounded shadow-lg z-30"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 2.4 }}
+                        >
+                          Table
+                        </motion.div>
                       </div>
                       
                       {/* Scanning progress */}

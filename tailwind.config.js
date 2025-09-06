@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Noto Sans', 'sans-serif'],
+        sans: ['var(--font-inter)','Inter','sans-serif'],
+        heading: ['var(--font-manrope)','Manrope','sans-serif'],
         serif: ['Noto Serif', 'serif'],
         lato: ['Lato', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
