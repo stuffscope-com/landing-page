@@ -1,19 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { insertWaitlistEntry, checkEmailExists } from '@/lib/supabase';
 
-// This is a placeholder implementation for Google Sheets integration
-// In production, you would integrate with Google Sheets API or your preferred database
-
-interface WaitlistEntry {
+interface WaitlistRequest {
   name: string;
   email: string;
   variant?: string;
-  timestamp: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, variant } = body;
+    const { name, email, variant }: WaitlistRequest = body;
 
     // Validate input
     if (!name || !email) {
@@ -32,49 +29,55 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create waitlist entry
-    const waitlistEntry: WaitlistEntry = {
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      variant: variant || 'default',
-      timestamp: new Date().toISOString()
-    };
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = name.trim();
 
-    // TODO: Replace with actual Google Sheets API integration
-    // Example Google Sheets integration would look like:
-    /*
-    const { GoogleSpreadsheet } = require('google-spreadsheet');
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
-    await doc.useServiceAccountAuth({
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    // Check if email already exists
+    const emailExists = await checkEmailExists(cleanEmail);
+    if (emailExists) {
+      return NextResponse.json(
+        { error: 'Email already registered on waitlist' },
+        { status: 409 }
+      );
+    }
+
+    // Create waitlist entry in Supabase
+    const waitlistEntry = await insertWaitlistEntry({
+      name: cleanName,
+      email: cleanEmail,
+      variant: variant || 'default'
     });
-    await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[0]; // or doc.sheetsByTitle['Waitlist']
-    await sheet.addRow({
-      Name: waitlistEntry.name,
-      Email: waitlistEntry.email,
-      Timestamp: waitlistEntry.timestamp
+
+    console.log('Waitlist entry saved to Supabase:', {
+      id: waitlistEntry.id,
+      email: waitlistEntry.email,
+      variant: waitlistEntry.variant
     });
-    */
-
-    // For now, log to console (replace with actual storage)
-    console.log('Waitlist entry:', waitlistEntry);
-
-    // Simulate some processing time
-    await new Promise(resolve => setTimeout(resolve, 500));
 
     return NextResponse.json(
       { 
         success: true, 
         message: 'Successfully joined waitlist',
-        data: { email: waitlistEntry.email }
+        data: {
+          id: waitlistEntry.id,
+          email: waitlistEntry.email,
+          variant: waitlistEntry.variant
+        }
       },
-      { status: 200 }
+      { status: 201 }
     );
 
   } catch (error) {
     console.error('Waitlist API error:', error);
+
+    // Return appropriate error message
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

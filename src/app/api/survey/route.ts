@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { insertSurveyResponse } from '@/lib/supabase';
 
-// This is a placeholder implementation for Google Sheets integration
-// In production, you would integrate with Google Sheets API or your preferred database
-
-interface SurveyResponse {
+interface SurveyRequest {
   answers: { [key: string]: string | string[] };
   variant?: string;
-  timestamp: string;
-  sessionId: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { answers, variant } = body;
+    const { answers, variant }: SurveyRequest = body;
 
     // Validate input
     if (!answers || typeof answers !== 'object') {
@@ -23,68 +19,60 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate that answers is not empty
+    if (Object.keys(answers).length === 0) {
+      return NextResponse.json(
+        { error: 'At least one answer is required' },
+        { status: 400 }
+      );
+    }
+
     // Generate a unique session ID for this survey response
     const sessionId = `survey_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Create survey response entry
-    const surveyResponse: SurveyResponse = {
-      answers,
+    // Count answered questions
+    const questionCount = Object.keys(answers).length;
+
+    // Create survey response entry in Supabase
+    const surveyResponse = await insertSurveyResponse({
+      session_id: sessionId,
       variant: variant || 'default',
-      timestamp: new Date().toISOString(),
-      sessionId
-    };
-
-    // TODO: Replace with actual Google Sheets API integration
-    // Example Google Sheets integration would look like:
-    /*
-    const { GoogleSpreadsheet } = require('google-spreadsheet');
-    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SURVEY_SHEET_ID);
-    await doc.useServiceAccountAuth({
-      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    });
-    await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[0]; // or doc.sheetsByTitle['Survey Responses']
-    
-    // Flatten the answers for easier spreadsheet storage
-    const flattenedAnswers: { [key: string]: string } = {};
-    Object.entries(answers).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        flattenedAnswers[key] = value.join(', ');
-      } else {
-        flattenedAnswers[key] = value;
-      }
+      answers: answers,
+      question_count: questionCount
     });
 
-    await sheet.addRow({
-      SessionId: surveyResponse.sessionId,
-      Timestamp: surveyResponse.timestamp,
-      ...flattenedAnswers
+    console.log('Survey response saved to Supabase:', {
+      id: surveyResponse.id,
+      sessionId: surveyResponse.session_id,
+      variant: surveyResponse.variant,
+      questionCount: surveyResponse.question_count
     });
-    */
-
-    // For now, log to console (replace with actual storage)
-    console.log('Survey response:', {
-      sessionId: surveyResponse.sessionId,
-      timestamp: surveyResponse.timestamp,
-      answersCount: Object.keys(answers).length,
-      answers: surveyResponse.answers
-    });
-
-    // Simulate some processing time
-    await new Promise(resolve => setTimeout(resolve, 800));
 
     return NextResponse.json(
       { 
         success: true, 
         message: 'Survey response recorded successfully',
-        data: { sessionId: surveyResponse.sessionId }
+        data: {
+          id: surveyResponse.id,
+          sessionId: surveyResponse.session_id,
+          variant: surveyResponse.variant,
+          questionCount: surveyResponse.question_count
+        }
       },
-      { status: 200 }
+      { status: 201 }
     );
 
   } catch (error) {
     console.error('Survey API error:', error);
+
+    // Return appropriate error message
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
