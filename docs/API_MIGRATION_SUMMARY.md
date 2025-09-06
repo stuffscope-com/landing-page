@@ -135,12 +135,12 @@ GET /api/analytics?type=health     # Connection test
 ### **API Testing**
 ```bash
 # Test waitlist signup
-curl -X POST /api/waitlist \
+curl -X POST http://localhost:3000/api/waitlist \
   -H "Content-Type: application/json" \
   -d '{"name":"Test User","email":"test@example.com","variant":"v1"}'
 
 # Test survey submission
-curl -X POST /api/survey \
+curl -X POST http://localhost:3000/api/survey \
   -H "Content-Type: application/json" \
   -d '{"answers":{"q1":"Yes","q2":"Option 1"},"variant":"v1"}'
 

@@ -49,18 +49,35 @@ export async function insertWaitlistEntry(entry: Omit<WaitlistEntry, 'id' | 'cre
 }
 
 export async function checkEmailExists(email: string): Promise<boolean> {
-  const { data, error } = await supabase
-    .from('waitlist')
-    .select('email')
-    .eq('email', email.toLowerCase())
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('waitlist')
+      .select('email')
+      .eq('email', email.toLowerCase())
+      .single();
 
-  if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
-    console.error('Supabase email check error:', error);
-    throw new Error(`Failed to check email: ${error.message}`);
+    if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
+      console.error('Supabase email check error:', error);
+
+      // Provide specific error messages for common issues
+      if (error.message.includes('schema cache')) {
+        throw new Error('Database tables not found. Please run the database setup script in Supabase SQL Editor.');
+      }
+
+      if (error.message.includes('permission denied')) {
+        throw new Error('Database permission denied. Please check your Supabase service role key.');
+      }
+
+      throw new Error(`Failed to check email: ${error.message}`);
+    }
+
+    return !!data;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error('Unknown error occurred while checking email');
   }
-
-  return !!data;
 }
 
 // Survey operations
@@ -111,18 +128,51 @@ export async function getSurveyStats() {
 // Health check
 export async function testConnection() {
   try {
+    // First test basic connection
     const { data, error } = await supabase
       .from('waitlist')
       .select('count')
       .limit(1);
 
     if (error) {
+      // Provide specific error messages
+      if (error.message.includes('schema cache')) {
+        return {
+          success: false,
+          message: 'Database tables not found. Please run database/setup-simple.sql in Supabase SQL Editor.',
+          error: error.message
+        };
+      }
+
+      if (error.message.includes('permission denied')) {
+        return {
+          success: false,
+          message: 'Permission denied. Check your SUPABASE_SERVICE_ROLE_KEY environment variable.',
+          error: error.message
+        };
+      }
+
       throw error;
     }
 
-    return { success: true, message: 'Supabase connection successful' };
+    // Test table structure
+    const { data: tableInfo, error: tableError } = await supabase
+      .rpc('get_table_info', {}, { count: 'exact' });
+
+    return {
+      success: true,
+      message: 'Supabase connection successful',
+      details: {
+        tablesAccessible: true,
+        connectionTime: new Date().toISOString()
+      }
+    };
   } catch (error) {
     console.error('Supabase connection test failed:', error);
-    return { success: false, message: 'Supabase connection failed', error };
+    return {
+      success: false,
+      message: 'Supabase connection failed',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
   }
 }
