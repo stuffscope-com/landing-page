@@ -168,7 +168,7 @@ export function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-16 sm:py-24 bg-card">
+      <section className="py-12 sm:py-16 lg:py-24 bg-card">
         <div className="container mx-auto px-4">
           <motion.div 
             className="max-w-6xl mx-auto"
@@ -177,11 +177,11 @@ export function LandingPage() {
             viewport={{ once: true }}
             variants={staggerChildren}
           >
-            <motion.div className="text-center mb-16" variants={fadeInUp}>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 font-heading">
+            <motion.div className="text-center mb-12 sm:mb-16" variants={fadeInUp}>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 sm:mb-6 font-heading">
                 {content.howItWorks.title}
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {content.howItWorks.subtitle}
               </p>
             </motion.div>
@@ -233,7 +233,7 @@ export function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 sm:py-24 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <motion.div 
             className="max-w-6xl mx-auto"
@@ -279,40 +279,38 @@ export function LandingPage() {
       </section>
 
       {/* Target Audience Section */}
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-12 sm:py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-5xl mx-auto text-center"
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerChildren}
           >
-            <motion.h2 
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6"
-              variants={fadeInUp}
-            >
-              {content.targetAudience.title}
-            </motion.h2>
-            <motion.p 
-              className="text-lg text-gray-600 mb-8"
-              variants={fadeInUp}
-            >
-              {content.targetAudience.description}
-            </motion.p>
+            <motion.div className="mb-12 sm:mb-16" variants={fadeInUp}>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 sm:mb-6 font-heading">
+                {content.targetAudience.title}
+              </h2>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                {content.targetAudience.description}
+              </p>
+            </motion.div>
             
             <motion.div 
-              className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto"
+              className="grid gap-4 sm:grid-cols-2 lg:gap-6 max-w-4xl mx-auto"
               variants={staggerChildren}
             >
               {content.targetAudience.audiences.map((audience, index) => (
                 <motion.div 
                   key={index}
-                  className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl"
+                  className="flex items-center gap-4 p-6 bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl border border-primary/20 hover:border-primary/30 transition-all duration-300 hover:shadow-lg text-left"
                   variants={fadeInUp}
                 >
-                  <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                  <span className="text-gray-700">{audience}</span>
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-primary" />
+                  </div>
+                  <span className="text-foreground font-medium text-base sm:text-lg">{audience}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -321,21 +319,21 @@ export function LandingPage() {
       </section>
 
       {/* Waitlist Form Section */}
-      <section id="waitlist" className="py-16 sm:py-24 bg-gray-50">
+      <section id="waitlist" className="py-12 sm:py-16 lg:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto"
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <Card className="p-6 lg:p-8">
+            <Card className="p-6 sm:p-8 lg:p-10 bg-gradient-to-b from-card to-card/90 border-border shadow-2xl">
               <CardContent className="p-0">
-                <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-3 sm:mb-4 font-heading">
                   {content.waitlistForm.title}
                 </h2>
-                <p className="text-gray-600 text-center mb-6">
+                <p className="text-muted-foreground text-center mb-6 sm:mb-8 text-base sm:text-lg leading-relaxed">
                   {content.waitlistForm.description}
                 </p>
 
@@ -349,7 +347,7 @@ export function LandingPage() {
                 ) : (
                   <form onSubmit={handleWaitlistSubmit} className="space-y-4">
                     <div>
-                      <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+                        <Label htmlFor="name" className="text-sm font-medium text-foreground mb-2 block">
                         {content.waitlistForm.nameLabel}
                       </Label>
                       <Input
@@ -358,13 +356,13 @@ export function LandingPage() {
                         value={waitlistForm.name}
                         onChange={(e) => setWaitlistForm(prev => ({ ...prev, name: e.target.value }))}
                         required
-                        className="mt-1"
+                          className="h-12 text-base"
                         placeholder="Enter your full name"
                       />
                     </div>
                     
                     <div>
-                      <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                        <Label htmlFor="email" className="text-sm font-medium text-foreground mb-2 block">
                         {content.waitlistForm.emailLabel}
                       </Label>
                       <Input
@@ -373,7 +371,7 @@ export function LandingPage() {
                         value={waitlistForm.email}
                         onChange={(e) => setWaitlistForm(prev => ({ ...prev, email: e.target.value }))}
                         required
-                        className="mt-1"
+                          className="h-12 text-base"
                         placeholder="Enter your email address"
                       />
                     </div>
@@ -387,7 +385,7 @@ export function LandingPage() {
 
                     <Button 
                       type="submit" 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                       disabled={waitlistForm.isSubmitting}
                     >
                       {waitlistForm.isSubmitting ? "Joining..." : content.waitlistForm.submitButton}
@@ -401,7 +399,7 @@ export function LandingPage() {
       </section>
 
       {/* Closing CTA Section */}
-      <section className="py-16 sm:py-24 bg-blue-600">
+      <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-primary via-primary to-primary/90">
         <div className="container mx-auto px-4">
           <motion.div 
             className="max-w-4xl mx-auto text-center"
@@ -411,13 +409,13 @@ export function LandingPage() {
             variants={staggerChildren}
           >
             <motion.h2 
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4 sm:mb-6 font-heading"
               variants={fadeInUp}
             >
               {content.closingCta.headline}
             </motion.h2>
             <motion.p 
-              className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto"
+              className="text-base sm:text-lg lg:text-xl text-primary-foreground/90 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
               variants={fadeInUp}
             >
               {content.closingCta.description}
@@ -427,10 +425,16 @@ export function LandingPage() {
               variants={fadeInUp}
             >
               <Button 
-                variant="default" 
                 size="lg"
-                type="button"
-                className="bg-white text-blue-600 hover:text-gray-50 px-8 py-3 text-lg rounded-xl"
+                className="bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                onClick={scrollToWaitlist}
+              >
+                {content.closingCta.ctaPrimary}
+              </Button>
+              <Button
+                variant="default"
+                size="lg"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 sm:px-8 py-3 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
                 asChild
               >
                 <Link href="/survey">{content.closingCta.ctaSecondary}</Link>
