@@ -426,13 +426,13 @@ export function LandingPage() {
             >
               <Button 
                 size="lg"
-                className="bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                className="hidden bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 onClick={scrollToWaitlist}
               >
                 {content.closingCta.ctaPrimary}
               </Button>
               <Button
-                variant="default"
+                variant="destructive"
                 size="lg"
                 className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 sm:px-8 py-3 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
                 asChild

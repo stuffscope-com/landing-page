@@ -52,7 +52,7 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         />
         <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/5 rounded-full"
+          className="absolute top-1/2 left-1/2 -translate-y-1/2 w-[700px] h-[600px] border border-primary/9 rounded-full"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
@@ -266,30 +266,30 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
                 </motion.div>
 
                 {/* 3rd Phone - Center (Scanner View with Hall Image) - Main */}
-                <div className="relative w-64 h-[520px] bg-gradient-to-b from-card to-card/90 rounded-[2.5rem] border-8 border-gray-800 shadow-2xl overflow-hidden z-20">
-                  <div className="w-full h-full bg-gradient-to-b from-primary/5 to-background rounded-[1.5rem] p-4 flex flex-col">
+                <div className="relative w-72 h-[580px] bg-gradient-to-b from-card to-card/95 rounded-[2.5rem] border-8 border-gray-800 shadow-2xl overflow-hidden z-20">
+                  <div className="w-full h-full bg-gradient-to-b from-background to-background/95 rounded-[1.5rem] p-4 flex flex-col">
                     {/* Status Bar */}
-                    <div className="flex justify-between items-center mb-4 text-xs text-muted-foreground">
-                      <span>9:41</span>
+                    <div className="flex justify-between items-center mb-6 text-xs text-muted-foreground">
+                      <span className="font-medium">9:41</span>
                       <div className="flex gap-1">
-                        <div className="w-4 h-2 bg-muted-foreground/30 rounded-sm"></div>
-                        <div className="w-4 h-2 bg-muted-foreground/30 rounded-sm"></div>
-                        <div className="w-4 h-2 bg-muted-foreground/30 rounded-sm"></div>
+                        <div className="w-4 h-2 bg-muted-foreground/40 rounded-sm"></div>
+                        <div className="w-4 h-2 bg-muted-foreground/40 rounded-sm"></div>
+                        <div className="w-4 h-2 bg-muted-foreground/40 rounded-sm"></div>
                       </div>
                     </div>
                     
                     {/* App Header */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">S</span>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-md">
+                        <span className="text-white font-bold text-base">S</span>
                       </div>
-                      <span className="font-semibold text-foreground">StuffScope</span>
+                      <span className="font-semibold text-foreground text-lg">StuffScope</span>
                     </div>
                     
                     {/* Scanner View with Hall Image */}
-                    <div className="flex-1 bg-gray-900 rounded-xl overflow-hidden relative">
+                    <div className="flex-1 bg-gray-900 rounded-2xl overflow-hidden relative mb-6">
                       {/* Camera viewfinder overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 z-10"></div>
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30 z-10"></div>
                       
                       {/* Hall/Room actual image */}
                       <div className="w-full h-full relative overflow-hidden">
@@ -303,70 +303,70 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
                         
                         {/* Scanning overlay */}
                         <motion.div 
-                          className="absolute inset-0 border-2 border-primary/60 rounded-lg z-20"
+                          className="absolute inset-0 border-2 border-primary/70 rounded-2xl z-20"
                           animate={{ 
-                            opacity: [0.4, 0.9, 0.4],
-                            scale: [0.98, 1, 0.98]
+                            opacity: [0.5, 1, 0.5],
+                            scale: [0.99, 1, 0.99]
                           }}
                           transition={{ duration: 2, repeat: Infinity }}
                         />
                         
-                        {/* Detection points on actual furniture/objects */}
+                        {/* Detection points and labels - Wall Frame */}
                         <motion.div 
-                          className="absolute top-1/4 left-1/2 w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg z-30"
-                          animate={{ scale: [0.8, 1.3, 0.8] }}
-                          transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-                        />
-                        <motion.div 
-                          className="absolute top-2/3 right-1/4 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg z-30"
-                          animate={{ scale: [0.8, 1.3, 0.8] }}
-                          transition={{ duration: 1.5, repeat: Infinity, delay: 0.8 }}
-                        />
-                        <motion.div 
-                          className="absolute bottom-1/3 left-1/4 w-4 h-4 bg-success rounded-full border-2 border-white shadow-lg z-30"
-                          animate={{ scale: [0.8, 1.3, 0.8] }}
-                          transition={{ duration: 1.5, repeat: Infinity, delay: 1.4 }}
-                        />
-
-                        {/* Item labels */}
-                        <motion.div
-                          className="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-8 bg-primary text-white text-xs px-2 py-1 rounded shadow-lg z-30"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
+                          className="absolute top-1/4 left-1/2 transform -translate-x-1/2 z-30"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 1.2 }}
                         >
-                          Wall Frame
+                          <div className="w-3 h-3 bg-primary rounded-full border-2 border-white shadow-lg mb-2"></div>
+                          <div className="bg-primary text-white text-xs px-3 py-1 rounded-full shadow-lg whitespace-nowrap font-medium">
+                            Wall Frame
+                          </div>
                         </motion.div>
-                        <motion.div
-                          className="absolute top-2/3 right-1/4 transform translate-x-1/2 -translate-y-8 bg-green-500 text-white text-xs px-2 py-1 rounded shadow-lg z-30"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
+
+                        {/* Detection points and labels - Table */}
+                        <motion.div 
+                          className="absolute bottom-1/3 left-1/3 transform -translate-x-1/2 z-30"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 1.8 }}
                         >
-                          BeanBag
+                          <div className="w-3 h-3 bg-accent rounded-full border-2 border-white shadow-lg mb-2"></div>
+                          <div className="bg-accent text-white text-xs px-3 py-1 rounded-full shadow-lg whitespace-nowrap font-medium">
+                            Table
+                          </div>
                         </motion.div>
-                        <motion.div
-                          className="absolute bottom-1/3 left-1/4 transform -translate-x-1/2 -translate-y-8 bg-yellow-300 text-white text-xs px-2 py-1 rounded shadow-lg z-30"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
+
+                        {/* Detection points and labels - BeanBag */}
+                        <motion.div 
+                          className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 z-30"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 2.4 }}
                         >
-                          Table
+                          <div className="w-3 h-3 bg-success rounded-full border-2 border-white shadow-lg mb-2"></div>
+                          <div className="bg-success text-white text-xs px-3 py-1 rounded-full shadow-lg whitespace-nowrap font-medium">
+                            BeanBag
+                          </div>
                         </motion.div>
                       </div>
                       
                       {/* Scanning progress */}
-                      <div className="absolute bottom-4 left-4 right-4 z-20">
-                        <div className="bg-black/50 backdrop-blur-sm rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-2">
-                            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                      <div className="absolute bottom-4 left-4 right-4 z-40">
+                        <div className="bg-black/60 backdrop-blur-md rounded-xl p-4">
+                          <div className="flex items-center gap-3 mb-3">
+                            <motion.div
+                              className="w-3 h-3 bg-primary rounded-full"
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            />
                             <span className="text-white text-sm font-medium">Scanning...</span>
                           </div>
-                          <div className="w-full bg-white/20 rounded-full h-1">
+                          <div className="w-full bg-white/20 rounded-full h-2">
                             <motion.div 
-                              className="bg-primary h-1 rounded-full"
-                              animate={{ width: ["0%", "75%", "0%"] }}
-                              transition={{ duration: 3, repeat: Infinity }}
+                              className="bg-primary h-2 rounded-full"
+                              animate={{ width: ["20%", "85%", "20%"] }}
+                              transition={{ duration: 4, repeat: Infinity }}
                             />
                           </div>
                         </div>
@@ -374,13 +374,21 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
                     </div>
                     
                     {/* Bottom capture button */}
-                    <div className="mt-4 flex justify-center">
+                    <div className="flex justify-center">
                       <motion.div 
-                        className="w-16 h-16 bg-primary rounded-full flex items-center justify-center"
+                        className="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg"
                         whileTap={{ scale: 0.95 }}
+                        animate={{
+                          boxShadow: [
+                            "0 10px 25px rgba(59, 130, 246, 0.3)",
+                            "0 10px 35px rgba(59, 130, 246, 0.5)",
+                            "0 10px 25px rgba(59, 130, 246, 0.3)"
+                          ]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity }}
                       >
-                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                          <div className="w-8 h-8 bg-primary rounded-full"></div>
+                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                          <div className="w-12 h-12 bg-primary rounded-full"></div>
                         </div>
                       </motion.div>
                     </div>
