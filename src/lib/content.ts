@@ -83,7 +83,7 @@ export const defaultContent: ContentConfig = {
     headline: "StuffScope — The smarter way to catalog what matters most.",
     subheadline: "Instantly scan, document, and organize your belongings. Whether for moving, decluttering, or future insurance claims, keep everything safe, searchable, and accessible.",
     ctaPrimary: "Join Waitlist",
-    ctaSecondary: "Take Survey"
+    ctaSecondary: "Take 2 min Survey"
   },
   problemSolution: {
     title: "Why StuffScope?",

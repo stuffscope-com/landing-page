@@ -85,24 +85,13 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
               className="flex flex-col sm:flex-row gap-3 mb-6 max-w-md mx-auto lg:mx-0"
               variants={fadeInUp}
             >
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="flex-1 h-12 text-base"
-              />
               <Button 
                 size="lg" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 h-12 shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
                 onClick={onScrollToWaitlist}
               >
                 {content.hero.ctaPrimary}
               </Button>
-            </motion.div>
-            
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center"
-              variants={fadeInUp}
-            >
               <Button 
                 variant="outline" 
                 size="lg"
@@ -111,6 +100,12 @@ export function HeroSection({ onScrollToWaitlist }: HeroSectionProps) {
               >
                 <Link href="/survey">{content.hero.ctaSecondary}</Link>
               </Button>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center"
+              variants={fadeInUp}
+            >
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <CheckCircle className="w-4 h-4 text-success" />
                 <span>No app download required</span>
