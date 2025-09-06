@@ -427,7 +427,7 @@ export const v1Content: ContentConfig = {
   },
   waitlistForm: {
     title: "Secure Your Early Access",
-    description: "Join 2,847+ smart homeowners who are already protecting their belongings with StuffScope.",
+    description: "Join 47+ smart homeowners who are already protecting their belongings with StuffScope.",
     nameLabel: "Your Name",
     emailLabel: "Email Address",
     submitButton: "Get Early Access",

@@ -463,15 +463,8 @@ export function LandingPageV1() {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               variants={fadeInUp}
             >
-              <Button 
-                size="lg"
-                className="bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
-                onClick={scrollToWaitlist}
-              >
-                {content.closingCta.ctaPrimary}
-              </Button>
               <Button
-                variant="outline"
+                variant="destructive"
                 size="lg"
                 className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 sm:px-8 py-3 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
                 onClick={() => trackCTAClick('secondary', 'Help Shape StuffScope', 'closing_cta', variant)}
