@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { getContent } from "@/lib/content";
+import { GoogleAnalytics } from "@/components/analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -97,6 +98,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-background text-foreground">
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

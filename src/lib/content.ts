@@ -311,9 +311,255 @@ export const defaultContent: ContentConfig = {
   }
 };
 
+// V1 Content - More engaging and attention-grabbing version
+export const v1Content: ContentConfig = {
+  meta: {
+    title: "StuffScope - Never Lose Track of What Matters Again",
+    description: "Stop worrying about lost belongings. Instantly catalog everything you own with AI-powered scanning. Perfect for insurance claims, moving, and peace of mind.",
+    keywords: ["home inventory", "insurance documentation", "belongings tracker", "moving inventory", "asset protection", "AI scanning"],
+    ogTitle: "StuffScope - Protect What You Own",
+    ogDescription: "The smartest way to document your belongings. Scan once, protect forever."
+  },
+  hero: {
+    headline: "Never Lose Track of What Matters Again",
+    subheadline: "What if you lost everything tomorrow? StuffScope ensures you're prepared. Scan any room in seconds and get instant AI-powered inventory reports for insurance, moving, or peace of mind.",
+    ctaPrimary: "Get Early Access",
+    ctaSecondary: "See How It Works"
+  },
+  problemSolution: {
+    title: "The Hidden Risk Every Homeowner Faces",
+    problem: "97% of people can't remember what they own until disaster strikes. When fire, theft, or damage happens, you'll wish you had documented everything. Insurance companies reject 40% of claims due to insufficient documentation.",
+    solutionTitle: "StuffScope turns your phone into a powerful inventory assistant:",
+    solutionPoints: [
+      "AI instantly identifies and values every item in seconds",
+      "Generate insurance-ready reports that get claims approved faster",
+      "Never lose track of warranties, receipts, or purchase dates",
+      "Access your inventory anywhere, anytime - even offline"
+    ]
+  },
+  howItWorks: {
+    title: "From Chaos to Catalog in 60 Seconds",
+    subtitle: "No apps to download. No complicated setup. Just point, scan, and protect.",
+    steps: [
+      {
+        number: 1,
+        icon: "link",
+        title: "Get instant access",
+        description: "Click the link we send - works on any phone browser"
+      },
+      {
+        number: 2,
+        icon: "globe",
+        title: "Open & scan",
+        description: "Point your camera at any room - that's it"
+      },
+      {
+        number: 3,
+        icon: "camera",
+        title: "AI does the work",
+        description: "Watch as every item gets identified automatically"
+      },
+      {
+        number: 4,
+        icon: "cpu",
+        title: "Get instant value",
+        description: "See real-time pricing and replacement costs"
+      },
+      {
+        number: 5,
+        icon: "edit",
+        title: "Review & adjust",
+        description: "Fine-tune details or add personal notes"
+      },
+      {
+        number: 6,
+        icon: "save",
+        title: "Download & protect",
+        description: "Get insurance-ready PDFs and cloud backup"
+      }
+    ]
+  },
+  features: {
+    title: "Why Smart Homeowners Choose StuffScope",
+    items: [
+      {
+        icon: "camera",
+        title: "Lightning-fast scanning",
+        description: "Document entire rooms in under 60 seconds - no typing required"
+      },
+      {
+        icon: "tag",
+        title: "AI-powered recognition",
+        description: "Identifies brands, models, and conditions with 95% accuracy"
+      },
+      {
+        icon: "dollar-sign",
+        title: "Real-time valuations",
+        description: "Instant replacement costs and depreciation calculations"
+      },
+      {
+        icon: "download",
+        title: "Insurance-ready exports",
+        description: "Professional reports that insurance companies actually accept"
+      },
+      {
+        icon: "cloud",
+        title: "Bulletproof backup",
+        description: "Military-grade encryption keeps your data safe forever"
+      }
+    ]
+  },
+  targetAudience: {
+    title: "Join Thousands Who've Already Protected Their Assets",
+    description: "StuffScope is trusted by:",
+    audiences: [
+      "Homeowners who want to sleep better at night knowing they're covered",
+      "Renters tired of losing security deposits over 'missing' items",
+      "Small business owners protecting their equipment investments",
+      "Anyone who's ever said 'I wish I had documented that before it was stolen'"
+    ]
+  },
+  closingCta: {
+    headline: "Don't Wait Until It's Too Late",
+    description: "Every day you wait is another day at risk. Join our exclusive early access program and be among the first to protect what matters most. Limited spots available.",
+    ctaPrimary: "🔒 Secure My Spot Now",
+    ctaSecondary: "📋 Help Shape StuffScope"
+  },
+  waitlistForm: {
+    title: "Secure Your Early Access",
+    description: "Join 2,847+ smart homeowners who are already protecting their belongings with StuffScope.",
+    nameLabel: "Your Name",
+    emailLabel: "Email Address",
+    submitButton: "Get Early Access",
+    successMessage: "🎉 You're in! We'll notify you the moment StuffScope is ready. Check your email for next steps.",
+    errorMessage: "Oops! Something went wrong. Please try again or contact us directly."
+  },
+  survey: {
+    title: "Help Us Build the Perfect Inventory Tool",
+    intro: "Your input shapes StuffScope's future. This 2-minute survey helps us understand what matters most to you when protecting your belongings. Every answer makes StuffScope better.",
+    thankYouMessage: "Thank you! Your feedback is invaluable. We'll use these insights to make StuffScope exactly what you need. Stay tuned for updates!",
+    submitButton: "Submit My Feedback",
+    questions: [
+      {
+        id: "q1",
+        type: "radio",
+        question: "Have you ever wished you had better documentation of your belongings?",
+        options: ["Yes, definitely", "Sometimes", "Not really"],
+        required: true
+      },
+      {
+        id: "q2",
+        type: "checkbox",
+        question: "What methods have you tried for tracking your belongings? (Select all that apply)",
+        options: [
+          "Photos scattered across my phone",
+          "Spreadsheets that I never update",
+          "Written lists that get lost",
+          "Insurance company apps (too complicated)",
+          "Nothing - I keep meaning to start"
+        ]
+      },
+      {
+        id: "q3",
+        type: "radio",
+        question: "What would motivate you most to document your belongings TODAY?",
+        options: [
+          "Recent break-in or theft in my area",
+          "Planning a big move soon",
+          "Just bought expensive items",
+          "Insurance company recommended it",
+          "Peace of mind"
+        ],
+        required: true
+      },
+      {
+        id: "q4",
+        type: "checkbox",
+        question: "Which situations worry you most? (Select all that apply)",
+        options: [
+          "Fire or natural disaster destroying everything",
+          "Burglary while I'm away",
+          "Moving and items getting lost/damaged",
+          "Insurance claim being denied for lack of proof",
+          "Forgetting what I own for tax/resale purposes",
+          "Roommate/tenant disputes over belongings"
+        ]
+      },
+      {
+        id: "q5",
+        type: "radio",
+        question: "How much would instant, accurate item valuations be worth to you?",
+        options: [
+          "Extremely valuable - I need this now",
+          "Very helpful for insurance/resale",
+          "Nice to have but not essential"
+        ],
+        required: true
+      },
+      {
+        id: "q6",
+        type: "radio",
+        question: "Would you pay $9/month to never worry about documenting belongings again?",
+        options: [
+          "Absolutely - that's cheaper than one insurance deductible",
+          "Maybe - depends on how easy it is to use",
+          "No - I prefer free solutions"
+        ],
+        required: true
+      },
+      {
+        id: "q7",
+        type: "checkbox",
+        question: "Which features would make you choose StuffScope over competitors? (Select all that apply)",
+        options: [
+          "60-second room scanning (no manual entry)",
+          "AI that recognizes brands and models automatically",
+          "Insurance-approved report templates",
+          "Automatic cloud backup and sync",
+          "Integration with major insurance companies",
+          "Warranty and receipt tracking"
+        ]
+      },
+      {
+        id: "q8",
+        type: "radio",
+        question: "What's your biggest frustration with current inventory methods?",
+        options: [
+          "Takes forever and I never finish",
+          "Hard to keep updated when I buy new things",
+          "Insurance companies don't accept my documentation format",
+          "I forget to do it until it's too late"
+        ],
+        required: true
+      },
+      {
+        id: "q9",
+        type: "checkbox",
+        question: "What concerns would stop you from using StuffScope? (Select all that apply)",
+        options: [
+          "Privacy - worried about photos of my home",
+          "Accuracy - what if the AI gets things wrong?",
+          "Cost - another monthly subscription",
+          "Complexity - will it actually be simple?",
+          "Trust - is this company legitimate?"
+        ]
+      },
+      {
+        id: "q10",
+        type: "textarea",
+        question: "If StuffScope could solve ONE problem for you, what would it be?",
+        required: false
+      }
+    ]
+  }
+};
+
 // Function to get content (can be extended for A/B testing)
 export function getContent(variant: string = 'default'): ContentConfig {
-  // In the future, this can load different variants for A/B testing
-  // or different languages for i18n
-  return defaultContent;
+  switch (variant) {
+    case 'v1':
+      return v1Content;
+    default:
+      return defaultContent;
+  }
 }

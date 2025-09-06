@@ -9,14 +9,14 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
+import { CheckCircle, AlertCircle, ArrowLeft, Clock, Users, Target } from "lucide-react";
 import { getContent } from "@/lib/content";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import Link from "next/link";
-import {
-  trackPageViewWithVariant,
-  trackSurveyStart,
+import { 
+  trackPageViewWithVariant, 
+  trackSurveyStart, 
   trackSurveyComplete,
   trackFormInteraction,
   setupScrollTracking,
@@ -24,7 +24,7 @@ import {
   getCurrentVariant
 } from "@/lib/analytics";
 
-const content = getContent();
+const content = getContent('v1');
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -44,7 +44,7 @@ interface SurveyAnswers {
   [key: string]: string | string[];
 }
 
-export default function SurveyPage() {
+export function SurveyPageV1() {
   const [answers, setAnswers] = useState<SurveyAnswers>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -74,7 +74,7 @@ export default function SurveyPage() {
       trackSurveyStart(variant);
       setSurveyStarted(true);
     }
-
+    
     setAnswers(prev => ({ ...prev, [questionId]: value }));
     trackFormInteraction('survey', 'input', questionId, variant);
   };
@@ -85,7 +85,7 @@ export default function SurveyPage() {
       trackSurveyStart(variant);
       setSurveyStarted(true);
     }
-
+    
     setAnswers(prev => {
       const currentAnswers = (prev[questionId] as string[]) || [];
       if (checked) {
@@ -103,7 +103,7 @@ export default function SurveyPage() {
       trackSurveyStart(variant);
       setSurveyStarted(true);
     }
-
+    
     setAnswers(prev => ({ ...prev, [questionId]: value }));
     trackFormInteraction('survey', 'input', questionId, variant);
   };
@@ -128,7 +128,7 @@ export default function SurveyPage() {
       const response = await fetch('/api/survey', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        body: JSON.stringify({ 
           answers,
           variant: variant
         })
@@ -154,7 +154,7 @@ export default function SurveyPage() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background">
-        <Header showBackButton backHref="/" />
+        <Header showBackButton backHref="/v1" />
         <div className="flex items-center justify-center p-4 py-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -169,7 +169,7 @@ export default function SurveyPage() {
                   {content.survey.thankYouMessage}
                 </p>
                 <Button asChild className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Link href="/">
+                  <Link href="/v1">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Home
                   </Link>
@@ -185,23 +185,56 @@ export default function SurveyPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header showBackButton backHref="/" title="Survey" />
+      <Header showBackButton backHref="/v1" title="Survey" />
 
-      {/* Half Hero Section */}
+      {/* Enhanced Hero Section */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-12 sm:py-16">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="text-center max-w-3xl mx-auto"
+            className="text-center max-w-4xl mx-auto"
             initial="initial"
             animate="animate"
-            variants={fadeInUp}
+            variants={staggerChildren}
           >
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            <motion.div variants={fadeInUp}>
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <Target className="w-4 h-4" />
+                <span>Shape the Future of Home Protection</span>
+              </div>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4"
+              variants={fadeInUp}
+            >
               {content.survey.title}
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            </motion.h1>
+            
+            <motion.p 
+              className="text-lg text-muted-foreground leading-relaxed mb-8"
+              variants={fadeInUp}
+            >
               {content.survey.intro}
-            </p>
+            </motion.p>
+
+            {/* Survey Stats */}
+            <motion.div 
+              className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground"
+              variants={fadeInUp}
+            >
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span>2 minutes to complete</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-success" />
+                <span>2,847+ responses so far</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-accent" />
+                <span>Your input matters</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -286,7 +319,7 @@ export default function SurveyPage() {
                         <Textarea
                           value={answers[question.id] as string || ""}
                           onChange={(e) => handleTextChange(question.id, e.target.value)}
-                          placeholder="Enter your answer..."
+                          placeholder="Share your thoughts..."
                           rows={4}
                           className="w-full"
                         />
@@ -310,8 +343,11 @@ export default function SurveyPage() {
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Submitting..." : content.survey.submitButton}
+                      {isSubmitting ? "Submitting Your Feedback..." : content.survey.submitButton}
                     </Button>
+                    <p className="text-center text-sm text-muted-foreground mt-3">
+                      Your responses help us build exactly what you need
+                    </p>
                   </motion.div>
                 </form>
               </CardContent>

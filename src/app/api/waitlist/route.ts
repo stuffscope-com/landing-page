@@ -6,13 +6,14 @@ import { NextRequest, NextResponse } from 'next/server';
 interface WaitlistEntry {
   name: string;
   email: string;
+  variant?: string;
   timestamp: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email } = body;
+    const { name, email, variant } = body;
 
     // Validate input
     if (!name || !email) {
@@ -35,6 +36,7 @@ export async function POST(request: NextRequest) {
     const waitlistEntry: WaitlistEntry = {
       name: name.trim(),
       email: email.trim().toLowerCase(),
+      variant: variant || 'default',
       timestamp: new Date().toISOString()
     };
 

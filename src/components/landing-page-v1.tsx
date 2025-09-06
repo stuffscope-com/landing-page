@@ -23,11 +23,11 @@ import {
 import { getContent } from "@/lib/content";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { HeroSection } from "@/components/hero-section";
+import { HeroSectionV1 } from "@/components/hero-section-v1";
 import Link from "next/link";
-import {
-  trackPageViewWithVariant,
-  trackWaitlistSignup,
+import { 
+  trackPageViewWithVariant, 
+  trackWaitlistSignup, 
   trackCTAClick,
   trackFormInteraction,
   setupScrollTracking,
@@ -35,7 +35,7 @@ import {
   getCurrentVariant
 } from "@/lib/analytics";
 
-const content = getContent();
+const content = getContent('v1');
 
 const iconMap = {
   camera: Camera,
@@ -64,7 +64,7 @@ const staggerChildren = {
   }
 };
 
-export function LandingPage() {
+export function LandingPageV1() {
   const [waitlistForm, setWaitlistForm] = useState({
     name: "",
     email: "",
@@ -91,7 +91,7 @@ export function LandingPage() {
   }, [variant]);
 
   const scrollToWaitlist = () => {
-    trackCTAClick('primary', 'Join Waitlist', 'hero', variant);
+    trackCTAClick('primary', 'Get Early Access', 'hero', variant);
     document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -130,7 +130,7 @@ export function LandingPage() {
     } catch (error) {
       // Track form error
       trackFormInteraction('waitlist', 'error', 'form', variant);
-
+      
       setWaitlistForm(prev => ({ 
         ...prev, 
         error: content.waitlistForm.errorMessage,
@@ -142,7 +142,7 @@ export function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection onScrollToWaitlist={scrollToWaitlist} />
+      <HeroSectionV1 onScrollToWaitlist={scrollToWaitlist} />
 
       {/* Problem & Solution Section */}
       <section className="py-12 sm:py-16 lg:py-24 bg-background">
@@ -170,7 +170,7 @@ export function LandingPage() {
                     <div className="w-12 h-12 bg-destructive/10 rounded-xl flex items-center justify-center mb-6">
                       <AlertCircle className="w-6 h-6 text-destructive" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-destructive mb-4 font-heading">The Problem</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-destructive mb-4 font-heading">The Hidden Risk</h3>
                     <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
                       {content.problemSolution.problem}
                     </p>
@@ -184,7 +184,7 @@ export function LandingPage() {
                     <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center mb-6">
                       <CheckCircle className="w-6 h-6 text-success" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-success mb-4 font-heading">Our Solution</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-success mb-4 font-heading">Your Protection</h3>
                     <p className="text-muted-foreground mb-6 text-base sm:text-lg leading-relaxed">
                       {content.problemSolution.solutionTitle}
                     </p>
@@ -261,7 +261,7 @@ export function LandingPage() {
             >
               <div className="flex items-center justify-center space-x-4 text-gray-400">
                 <div className="flex-1 h-px bg-gray-200"></div>
-                <span className="text-sm font-medium">Simple • Fast • No Downloads</span>
+                <span className="text-sm font-medium">Instant • Accurate • Secure</span>
                 <div className="flex-1 h-px bg-gray-200"></div>
               </div>
             </motion.div>
@@ -392,7 +392,7 @@ export function LandingPage() {
                         type="text"
                         value={waitlistForm.name}
                         onChange={(e) => setWaitlistForm(prev => ({ ...prev, name: e.target.value }))}
-                          onFocus={() => trackFormInteraction('waitlist', 'focus', 'name', variant)}
+                        onFocus={() => trackFormInteraction('waitlist', 'focus', 'name', variant)}
                         required
                           className="h-12 text-base"
                         placeholder="Enter your full name"
@@ -408,7 +408,7 @@ export function LandingPage() {
                         type="email"
                         value={waitlistForm.email}
                         onChange={(e) => setWaitlistForm(prev => ({ ...prev, email: e.target.value }))}
-                          onFocus={() => trackFormInteraction('waitlist', 'focus', 'email', variant)}
+                        onFocus={() => trackFormInteraction('waitlist', 'focus', 'email', variant)}
                         required
                           className="h-12 text-base"
                         placeholder="Enter your email address"
@@ -427,7 +427,7 @@ export function LandingPage() {
                         className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                       disabled={waitlistForm.isSubmitting}
                     >
-                      {waitlistForm.isSubmitting ? "Joining..." : content.waitlistForm.submitButton}
+                      {waitlistForm.isSubmitting ? "Securing..." : content.waitlistForm.submitButton}
                     </Button>
                   </form>
                 )}
@@ -465,19 +465,19 @@ export function LandingPage() {
             >
               <Button 
                 size="lg"
-                className="hidden bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
+                className="bg-card text-primary hover:bg-card/90 px-6 sm:px-8 py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 onClick={scrollToWaitlist}
               >
                 {content.closingCta.ctaPrimary}
               </Button>
               <Button
-                variant="destructive"
+                variant="outline"
                 size="lg"
                 className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 sm:px-8 py-3 text-base sm:text-lg transition-all duration-300 w-full sm:w-auto"
-                onClick={() => trackCTAClick('secondary', 'Take Survey', 'closing_cta', variant)}
+                onClick={() => trackCTAClick('secondary', 'Help Shape StuffScope', 'closing_cta', variant)}
                 asChild
               >
-                <Link href="/survey">{content.closingCta.ctaSecondary}</Link>
+                <Link href="/v1/survey">{content.closingCta.ctaSecondary}</Link>
               </Button>
             </motion.div>
           </motion.div>

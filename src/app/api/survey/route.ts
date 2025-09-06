@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 interface SurveyResponse {
   answers: { [key: string]: string | string[] };
+  variant?: string;
   timestamp: string;
   sessionId: string;
 }
@@ -12,7 +13,7 @@ interface SurveyResponse {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { answers } = body;
+    const { answers, variant } = body;
 
     // Validate input
     if (!answers || typeof answers !== 'object') {
@@ -28,6 +29,7 @@ export async function POST(request: NextRequest) {
     // Create survey response entry
     const surveyResponse: SurveyResponse = {
       answers,
+      variant: variant || 'default',
       timestamp: new Date().toISOString(),
       sessionId
     };
