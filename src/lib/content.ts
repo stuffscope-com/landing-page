@@ -180,16 +180,16 @@ export const defaultContent: ContentConfig = {
   },
   closingCta: {
     headline: "Start organizing smarter today.",
-    description: "Be the first to try StuffScope. Join our waitlist and help shape the future of home and business inventory tools.",
-    ctaPrimary: "Join Waitlist",
-    ctaSecondary: "Take Survey"
+    description: "Be among the first to try StuffScope—the smarter way to manage home and business inventory. Your feedback matters. Take our quick survey and help shape the future of StuffScope.",
+    ctaPrimary: "🚀 Join the Waitlist",
+    ctaSecondary: "👉 Take the 2-minute Survey"
   },
   waitlistForm: {
     title: "Join the Waitlist",
     description: "Get early access to StuffScope and be notified when we launch.",
     nameLabel: "Full Name",
     emailLabel: "Email Address", 
-    submitButton: "Join Waitlist",
+    submitButton: "Join the Waitlist",
     successMessage: "Thanks for joining! We'll keep you updated as we get closer to launch.",
     errorMessage: "Something went wrong. Please try again."
   },

@@ -11,6 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
 import { getContent } from "@/lib/content";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import Link from "next/link";
 
 const content = getContent();
@@ -95,34 +97,59 @@ export default function SurveyPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Card className="max-w-md mx-auto text-center p-8">
-            <CardContent className="p-0">
-              <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-6" />
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">Thank You!</h1>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                {content.survey.thankYouMessage}
-              </p>
-              <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                <Link href="/">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Home
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </motion.div>
+      <div className="min-h-screen bg-background">
+        <Header showBackButton backHref="/" />
+        <div className="flex items-center justify-center p-4 py-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card className="max-w-md mx-auto text-center p-8 bg-card border-border shadow-lg">
+              <CardContent className="p-0">
+                <CheckCircle className="w-16 h-16 text-success mx-auto mb-6" />
+                <h1 className="text-2xl font-bold text-foreground mb-4">Thank You!</h1>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {content.survey.thankYouMessage}
+                </p>
+                <Button asChild className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Link href="/">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Home
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+        <Footer minimal />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
+      <Header showBackButton backHref="/" title="Survey" />
+
+      {/* Half Hero Section */}
+      <section className="bg-gradient-to-b from-primary/5 to-background py-12 sm:py-16">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto"
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+          >
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              {content.survey.title}
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              {content.survey.intro}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       <div className="container mx-auto px-4 py-8 sm:py-12">
         <motion.div
           className="max-w-3xl mx-auto"
@@ -130,26 +157,10 @@ export default function SurveyPage() {
           animate="animate"
           variants={staggerChildren}
         >
-          {/* Header */}
-          <motion.div className="text-center mb-8" variants={fadeInUp}>
-            <Link 
-              href="/" 
-              className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Link>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              {content.survey.title}
-            </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              {content.survey.intro}
-            </p>
-          </motion.div>
 
           {/* Survey Form */}
           <motion.div variants={fadeInUp}>
-            <Card className="p-6 lg:p-8">
+            <Card className="p-6 lg:p-8 bg-card border-border shadow-lg">
               <CardContent className="p-0">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {content.survey.questions.map((question, index) => (
@@ -158,9 +169,9 @@ export default function SurveyPage() {
                       className="space-y-4"
                       variants={fadeInUp}
                     >
-                      <Label className="text-base font-medium text-gray-900 block">
+                      <Label className="text-base font-medium text-foreground block">
                         {index + 1}. {question.question}
-                        {question.required && <span className="text-red-500 ml-1">*</span>}
+                        {question.required && <span className="text-destructive ml-1">*</span>}
                       </Label>
 
                       {question.type === 'radio' && question.options && (
@@ -174,7 +185,7 @@ export default function SurveyPage() {
                               <RadioGroupItem value={option} id={`${question.id}-${optionIndex}`} />
                               <Label 
                                 htmlFor={`${question.id}-${optionIndex}`}
-                                className="text-gray-700 cursor-pointer"
+                                className="text-muted-foreground cursor-pointer"
                               >
                                 {option}
                               </Label>
@@ -196,7 +207,7 @@ export default function SurveyPage() {
                               />
                               <Label 
                                 htmlFor={`${question.id}-${optionIndex}`}
-                                className="text-gray-700 cursor-pointer"
+                                className="text-muted-foreground cursor-pointer"
                               >
                                 {option}
                               </Label>
@@ -229,7 +240,7 @@ export default function SurveyPage() {
 
                   {error && (
                     <motion.div 
-                      className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-lg"
+                      className="flex items-center gap-2 text-destructive bg-destructive/5 p-4 rounded-lg border border-destructive/20"
                       variants={fadeInUp}
                     >
                       <AlertCircle className="w-5 h-5" />
@@ -240,7 +251,7 @@ export default function SurveyPage() {
                   <motion.div className="pt-6" variants={fadeInUp}>
                     <Button 
                       type="submit" 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Submitting..." : content.survey.submitButton}
@@ -252,6 +263,8 @@ export default function SurveyPage() {
           </motion.div>
         </motion.div>
       </div>
+
+      <Footer minimal />
     </div>
   );
 }
