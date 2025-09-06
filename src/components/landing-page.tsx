@@ -127,10 +127,10 @@ export function LandingPage() {
         name: "",
         email: ""
       }));
-    } catch (error) {
+    } catch {
       // Track form error
       trackFormInteraction('waitlist', 'error', 'form', variant);
-
+      
       setWaitlistForm(prev => ({ 
         ...prev, 
         error: content.waitlistForm.errorMessage,

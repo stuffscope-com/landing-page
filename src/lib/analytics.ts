@@ -55,7 +55,7 @@ export const trackEvent = (
   variant?: string
 ) => {
   if (typeof window !== 'undefined' && window.gtag && GA_TRACKING_ID) {
-    const eventData: any = {
+    const eventData: Record<string, unknown> = {
       event_category: category,
       event_label: label,
       value: value,
@@ -181,7 +181,7 @@ export const trackPageViewWithVariant = (url?: string, title?: string) => {
 export const setupScrollTracking = (variant?: string) => {
   if (typeof window === 'undefined') return;
 
-  let scrollDepthTracked = new Set<number>();
+  const scrollDepthTracked = new Set<number>();
   const thresholds = [25, 50, 75, 90, 100];
 
   const handleScroll = () => {
@@ -210,7 +210,7 @@ export const setupTimeTracking = (variant?: string) => {
   if (typeof window === 'undefined') return;
 
   const startTime = Date.now();
-  let timeTracked = new Set<number>();
+  const timeTracked = new Set<number>();
   const thresholds = [30, 60, 120, 300]; // 30s, 1m, 2m, 5m
 
   const trackTimeThresholds = () => {

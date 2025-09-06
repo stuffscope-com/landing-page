@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
-  Camera, 
   Tag, 
   DollarSign, 
   Download, 
@@ -17,6 +16,7 @@ import {
 import { getContent } from "@/lib/content";
 import Link from "next/link";
 import Image from "next/image";
+import { trackCTAClick, getCurrentVariant } from "@/lib/analytics";
 
 const content = getContent('v1');
 
@@ -39,6 +39,8 @@ interface HeroSectionV1Props {
 }
 
 export function HeroSectionV1({ onScrollToWaitlist }: HeroSectionV1Props) {
+  const variant = getCurrentVariant();
+  
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-destructive/5 via-background to-primary/5 min-h-[90vh] flex items-center">
       {/* Urgent Background Elements */}
@@ -82,7 +84,7 @@ export function HeroSectionV1({ onScrollToWaitlist }: HeroSectionV1Props) {
               variants={fadeInUp}
             >
               <Shield className="w-4 h-4" />
-              <span>Don't wait until it's too late</span>
+              <span>Don&apos;t wait until it&apos;s too late</span>
             </motion.div>
 
             <motion.h1 
@@ -161,6 +163,7 @@ export function HeroSectionV1({ onScrollToWaitlist }: HeroSectionV1Props) {
                 variant="outline" 
                 size="lg"
                 className="border-border text-foreground hover:bg-secondary px-6 py-3 transition-all duration-300"
+                onClick={() => trackCTAClick('secondary', 'See How It Works', 'hero', variant)}
                 asChild
               >
                 <Link href="/v1/survey">{content.hero.ctaSecondary}</Link>

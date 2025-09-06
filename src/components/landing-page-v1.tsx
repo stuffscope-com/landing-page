@@ -127,7 +127,7 @@ export function LandingPageV1() {
         name: "",
         email: ""
       }));
-    } catch (error) {
+    } catch {
       // Track form error
       trackFormInteraction('waitlist', 'error', 'form', variant);
       
